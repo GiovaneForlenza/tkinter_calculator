@@ -10,10 +10,11 @@ class Controller:
     def main(self):
         self.view.main()
 
-
-
     def on_btn_click(self, caption):
-        print(f'Button {caption} pressed')
+        result = self.model.calculate(caption)
+        # print(f'Button {result} pressed')
+        self.view.value_var.set(result)
+
 
 if __name__ == '__main__':
     agenda = Controller()

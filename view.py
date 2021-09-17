@@ -25,6 +25,7 @@ class View(tk.Tk):
         self._make_main_frame()
         self._make_entry()
         self._make_buttons()
+        self._center_window()
 
     def main(self):
         self.mainloop()
@@ -34,7 +35,7 @@ class View(tk.Tk):
         self.main_frame.pack(padx=self.PADDING, pady=self.PADDING)
 
     def _make_entry(self):
-        entry = ttk.Entry(self.main_frame, justify='right', textvariable=self.value_var, state=DISABLED)
+        entry = ttk.Entry(self.main_frame, justify='right', textvariable=self.value_var)
         entry.pack(fill='x')
 
     def _make_buttons(self):
@@ -51,6 +52,14 @@ class View(tk.Tk):
                 inner_frame.pack()
                 btns_in_row = 0
             btn = ttk.Button(inner_frame, text=caption, command=
-                lambda button=caption:self.controller.on_btn_click(button))
-            btn.pack(side='left', padx=self.PADDING/2, pady=self.PADDING)
+            lambda button=caption: self.controller.on_btn_click(button))
+            btn.pack(side='left', padx=self.PADDING / 2, pady=self.PADDING)
             btns_in_row += 1
+
+    def _center_window(self):
+        self.update()
+        width = self.winfo_width()
+        height = self.winfo_height()
+        x_offset = int((self.winfo_screenwidth() - width *3))
+        y_offset = int((self.winfo_screenheight() - height *6))
+        self.geometry(f'{width}x{height}+{x_offset}+{y_offset}')
